@@ -8,8 +8,20 @@
       required
     ></v-text-field>
     <v-text-field
+      v-model="form.name"
+      autocomplete="true"
+      label="Name"
+      required
+    ></v-text-field>
+    <v-text-field
       v-model="form.password"
       label="Password"
+      type="password"
+      required
+    ></v-text-field>
+    <v-text-field
+      v-model="form.password_confirmation"
+      label="Password Confirm"
       type="password"
       required
     ></v-text-field>
@@ -20,21 +32,22 @@
     >
       submit
     </v-btn>
-    <router-link to="/signup">SignUp</router-link>
+    <router-link to="/login">LogIn</router-link>
   </form>
 </template>
 <script>
-import axios from "axios";
 export default {
   data: () => ({
     form: {
       name: "",
+      email: "",
       password: "",
+      password_confirmation: "",
     },
   }),
   methods: {
     async submit() {
-      User.login(this.form);
+      User.signup(this.form);
     },
   },
 };
