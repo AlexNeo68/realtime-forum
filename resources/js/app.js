@@ -6,6 +6,11 @@
 
 require('./bootstrap');
 
+import User from './Helpers/User'
+window.User = User;
+
+
+
 window.Vue = require('vue').default;
 import vuetify from './vuetify';
 

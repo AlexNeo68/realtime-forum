@@ -3,18 +3,15 @@
   <form>
     <v-text-field
       v-model="form.email"
+      autocomplete="true"
       label="E-mail"
       required
-      @input="$v.email.$touch()"
-      @blur="$v.email.$touch()"
     ></v-text-field>
     <v-text-field
       v-model="form.password"
       label="Password"
       type="password"
       required
-      @input="$v.password.$touch()"
-      @blur="$v.password.$touch()"
     ></v-text-field>
 
     <v-btn
@@ -36,15 +33,7 @@ export default {
   }),
   methods: {
     async submit() {
-      try {
-        const res = await axios.post("/api/auth/login", {
-          email: this.form.email,
-          password: this.form.password,
-        });
-        console.log(res.data);
-      } catch (error) {
-        console.log(error.response);
-      }
+      User.login(this.form);
     },
   },
 };
