@@ -12,27 +12,37 @@
       <v-spacer></v-spacer>
 
       <v-toolbar-items>
-        <v-btn>
-          <span>Forum</span>
 
+        <v-btn
+          v-for="item in items"
+          :key="item.to"
+          v-if="item.show"
+        >
+          <router-link :to='item.to'><span>{{ item.title }}</span></router-link>
         </v-btn>
-
-        <v-btn>
-          <span>AskQuestion</span>
-
-        </v-btn>
-
-        <v-btn>
-          <span>Category</span>
-
-        </v-btn>
-
-        <v-btn>
-
-          <router-link to='/login'><span>Login</span></router-link>
-        </v-btn>
-
       </v-toolbar-items>
     </v-toolbar>
   </v-card>
 </template>
+
+<script>
+export default {
+  name: "Toolbar",
+  created() {
+    EventBus.$on("logout", () => {
+      User.logout();
+    });
+  },
+  data() {
+    return {
+      items: [
+        { title: "Forum", to: "/forum", show: true },
+        { title: "Ask Question", to: "/ask", show: User.loggedIn() },
+        { title: "Category", to: "/category", show: User.loggedIn() },
+        { title: "Login", to: "/login", show: !User.loggedIn() },
+        { title: "Logout", to: "/logout", show: User.loggedIn() },
+      ],
+    };
+  },
+};
+</script>

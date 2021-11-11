@@ -9,10 +9,14 @@ require('./bootstrap');
 import User from './Helpers/User'
 window.User = User;
 
+console.log(User.loggedIn());
 
 
 window.Vue = require('vue').default;
 import vuetify from './vuetify';
+
+window.EventBus = new Vue();
+
 
 /**
  * The following block of code may be used to automatically register your
@@ -33,6 +37,7 @@ Vue.component('app-home', require('./components/AppHome.vue').default);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 import router from './router';
+import Vue from 'vue';
 const app = new Vue({
     el: '#app',
     vuetify,

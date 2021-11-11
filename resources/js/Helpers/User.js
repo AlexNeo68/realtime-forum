@@ -6,14 +6,26 @@ class User {
             const res = await axios.post("/api/auth/login", data);
             this.responseAftreLogin(res.data);
         } catch (error) {
-            console.log(error);
+            throw error;
+        }
+    }
+
+    async signup(data) {
+        try {
+            const res = await axios.post("/api/auth/signup", data);
+            this.responseAftreLogin(res.data);
+        } catch (error) {
+            console.log(error.response);
+            throw error;
         }
     }
 
     responseAftreLogin({ access_token, user }) {
         if (Token.isValid(access_token)) {
             AppStorage.store(access_token, user);
+            window.location = '/forum';
         }
+
     }
 
     hasToken() {
@@ -30,6 +42,7 @@ class User {
 
     logout() {
         AppStorage.clear();
+        window.location = '/forum';
     }
 
     name() {

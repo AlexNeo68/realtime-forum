@@ -5,6 +5,8 @@
       v-model="form.email"
       autocomplete="true"
       label="E-mail"
+      :error="errors&&errors.email ? true : false"
+      :error-messages="errors&&errors.email"
       required
     ></v-text-field>
     <v-text-field
@@ -12,11 +14,15 @@
       autocomplete="true"
       label="Name"
       required
+      :error="errors&&errors.name ? true : false"
+      :error-messages="errors&&errors.name"
     ></v-text-field>
     <v-text-field
       v-model="form.password"
       label="Password"
       type="password"
+      :error="errors&&errors.password ? true : false"
+      :error-messages="errors&&errors.password"
       required
     ></v-text-field>
     <v-text-field
@@ -44,10 +50,21 @@ export default {
       password: "",
       password_confirmation: "",
     },
+    errors: null,
   }),
+  created() {
+    if (User.loggedIn()) {
+      this.$router.push({ name: "forum" });
+    }
+  },
   methods: {
     async submit() {
-      User.signup(this.form);
+      this.errors = null;
+      try {
+        await User.signup(this.form);
+      } catch (error) {
+        this.errors = error.response.data.errors;
+      }
     },
   },
 };
