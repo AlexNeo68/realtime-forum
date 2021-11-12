@@ -7,6 +7,8 @@ import Login from '../components/login/Login.vue'
 import Logout from '../components/login/Logout.vue'
 import Signup from '../components/login/Signup.vue'
 import Forum from '../components/forum/Forum.vue'
+import QuestionDetail from '../components/forum/QuestionDetail.vue'
+import QuestionAsk from '../components/forum/QuestionAsk.vue'
 
 const routes = [
     {
@@ -25,6 +27,16 @@ const routes = [
         path: '/forum',
         component: Forum,
         name: 'forum',
+    },
+    {
+        path: '/questions/:slug',
+        component: QuestionDetail,
+        name: 'question-detail',
+    },
+    {
+        path: '/ask',
+        component: QuestionAsk,
+        name: 'question-ask',
     }
 ]
 

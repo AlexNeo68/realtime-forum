@@ -15,11 +15,14 @@ class QuestionResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'title' => $this->title,
+            'slug' => $this->slug,
             'path' => $this->path,
             'body' => $this->body,
             'created_at' => $this->created_at->diffForHumans(),
-            'author' => $this->user->name
+            'author' => $this->user->name,
+            'user_id' => $this->user_id
         ];
     }
 }

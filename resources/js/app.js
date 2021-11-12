@@ -9,13 +9,15 @@ require('./bootstrap');
 import User from './Helpers/User'
 window.User = User;
 
-console.log(User.loggedIn());
-
 
 window.Vue = require('vue').default;
 import vuetify from './vuetify';
 
 window.EventBus = new Vue();
+
+import CKEditor from '@ckeditor/ckeditor5-vue2';
+
+Vue.use(CKEditor);
 
 
 /**
