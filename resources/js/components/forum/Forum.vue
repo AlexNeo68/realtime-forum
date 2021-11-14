@@ -9,16 +9,17 @@
         />
       </v-col>
       <v-col cols="3">
-        sidebar
+        <QuestionCategories />
       </v-col>
     </v-row>
   </div>
 </template>
 <script>
 import Question from "./Question.vue";
+import QuestionCategories from "./QuestionCategories.vue";
 export default {
   name: "Forum",
-  components: { Question },
+  components: { Question, QuestionCategories },
   async created() {
     try {
       const res = await axios.get("/api/questions");

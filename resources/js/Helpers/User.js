@@ -61,6 +61,10 @@ class User {
         return this.id() === id
     }
 
+    isAdmin() {
+        return this.id() === 15
+    }
+
 
 }
 

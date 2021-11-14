@@ -18,12 +18,14 @@ class Question extends Model
         });
     }
 
+    protected $with = ['replies'];
+
     public function getRouteKeyName()
     {
         return 'slug';
     }
 
-    protected $guarded = [];
+    protected $fillable = ['title', 'body', 'user_id', 'category_id', 'slug'];
 
     public function user() {
        return $this->belongsTo(User::class);

@@ -22,7 +22,10 @@ class QuestionResource extends JsonResource
             'body' => $this->body,
             'created_at' => $this->created_at->diffForHumans(),
             'author' => $this->user->name,
-            'user_id' => $this->user_id
+            'user_id' => $this->user_id,
+            'category_id' => $this->category_id,
+            'replies' => ReplyResource::collection($this->replies),
+            'replies_count' => $this->replies->count(),
         ];
     }
 }

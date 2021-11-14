@@ -69,7 +69,6 @@ export default {
     };
   },
   async created() {
-    this.errors = null;
     try {
       const res = await axios.get(`/api/categories`);
       this.categories = res.data;
@@ -81,6 +80,7 @@ export default {
   },
   methods: {
     async create() {
+      this.errors = null;
       try {
         const res = await axios.post(`/api/questions`, this.form);
         this.$router.push(res.data.path);

@@ -9,6 +9,7 @@ import Signup from '../components/login/Signup.vue'
 import Forum from '../components/forum/Forum.vue'
 import QuestionDetail from '../components/forum/QuestionDetail.vue'
 import QuestionAsk from '../components/forum/QuestionAsk.vue'
+import CategoryCreate from '../components/categories/CategoryCreate.vue'
 
 const routes = [
     {
@@ -37,6 +38,11 @@ const routes = [
         path: '/ask',
         component: QuestionAsk,
         name: 'question-ask',
+    },
+    {
+        path: '/category',
+        component: CategoryCreate,
+        name: 'category-create',
     }
 ]
 
