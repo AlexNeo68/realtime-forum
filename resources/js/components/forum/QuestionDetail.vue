@@ -10,6 +10,9 @@
         v-else
         :question="question"
         @question-edit="editing=true"
+        @reply-create="getQuestion"
+        @reply-delete="getQuestion"
+        @reply-edited="getQuestion"
       />
     </v-card>
 

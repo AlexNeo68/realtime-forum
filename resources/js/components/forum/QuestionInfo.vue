@@ -40,16 +40,23 @@
       <Replies
         class="mt-6"
         :replies="question.replies"
+        @reply-delete="()=>$emit('reply-delete')"
+        @reply-edited="()=>$emit('reply-edited')"
+      />
+      <CreateReply
+        :question="question"
+        @reply-create="(reply) => $emit('reply-create', reply)"
       />
     </v-card-text>
 
   </div>
 </template>
 <script>
+import CreateReply from "./replies/CreateReply.vue";
 import Replies from "./replies/Replies.vue";
 export default {
   name: "QuestionDetail",
-  components: { Replies },
+  components: { Replies, CreateReply },
   props: ["question"],
   computed: {
     own() {

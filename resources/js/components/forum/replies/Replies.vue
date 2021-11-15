@@ -1,6 +1,8 @@
 <template>
   <div>
     <Reply
+      @reply-delete="()=>$emit('reply-delete')"
+      @reply-edited="()=>$emit('reply-edited')"
       :reply="reply"
       :key="reply.id"
       v-for="reply in replies"
