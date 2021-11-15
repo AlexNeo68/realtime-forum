@@ -16,12 +16,12 @@ class LikeController extends Controller
     }
 
     public function likeIt(Reply $reply) {
-        $reply->likes()->create(['user_id' => 1]);
+        $reply->likes()->create(['user_id' => auth()->user()->id]);
         return response($reply->likes, Response::HTTP_CREATED);
     }
 
     public function unLikeIt(Reply $reply) {
-        $reply->likes()->where('user_id', 1)->first()->delete();
+        $reply->likes()->where('user_id', auth()->user()->id)->first()->delete();
         return response($reply->likes, Response::HTTP_CREATED);
     }
 }

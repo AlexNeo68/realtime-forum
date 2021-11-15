@@ -1,6 +1,10 @@
 <template>
   <v-card class="mt-4">
-    <v-card-title>{{reply.author}} said {{  reply.created_at }}</v-card-title>
+    <v-card-title>
+      <div>{{reply.author}} said {{  reply.created_at }}</div>
+      <v-spacer></v-spacer>
+      <Like :reply="reply" />
+    </v-card-title>
     <EditReply
       v-if="editing"
       :reply="reply"
@@ -31,8 +35,9 @@
 </template>
 <script>
 import EditReply from "./EditReply.vue";
+import Like from "./Like.vue";
 export default {
-  components: { EditReply },
+  components: { EditReply, Like },
   name: "Reply",
   props: ["reply"],
   data() {
