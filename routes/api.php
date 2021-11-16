@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\QrcodeController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ReplyController;
@@ -14,6 +15,12 @@ Route::apiResource('/questions/{question}/replies', ReplyController::class);
 
 Route::post('likes/{reply}', [LikeController::class, 'likeIt']);
 Route::delete('likes/{reply}', [LikeController::class, 'unLikeIt']);
+
+Route::middleware('JWT')->group(function () {
+    Route::get('notifications', [NotificationsController::class, 'index']);
+    Route::get('notifications/{notification}', [NotificationsController::class, 'markAsRead']);
+});
+
 
 
 Route::group([

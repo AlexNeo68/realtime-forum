@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ReplyResource;
 use App\Models\Question;
 use App\Models\Reply;
+use App\Notifications\SendReplyNotification;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -36,6 +37,10 @@ class ReplyController extends Controller
     public function store(Question $question)
     {
         $reply = $question->replies()->create(request()->all());
+
+        if(auth()->user()->id !== $question->user_id){
+            $question->user->notify(new SendReplyNotification($reply));
+        }
 
         return response(new ReplyResource($reply), Response::HTTP_CREATED);
     }

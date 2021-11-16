@@ -11,8 +11,9 @@
 
       <v-spacer></v-spacer>
 
-      <v-toolbar-items>
+      <app-notifications v-if="loggedIn" />
 
+      <v-toolbar-items>
         <v-btn
           v-for="item in items"
           :key="item.to"
@@ -26,7 +27,9 @@
 </template>
 
 <script>
+import AppNotifications from "./AppNotifications.vue";
 export default {
+  components: { AppNotifications },
   name: "Toolbar",
   created() {
     EventBus.$on("logout", () => {
@@ -35,6 +38,7 @@ export default {
   },
   data() {
     return {
+      loggedIn: User.loggedIn(),
       items: [
         { title: "Forum", to: "/forum", show: true },
         { title: "Ask Question", to: "/ask", show: User.loggedIn() },
