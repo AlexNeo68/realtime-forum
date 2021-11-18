@@ -26,6 +26,13 @@ export default {
       return this.liked ? "cyan" : "cyan lighten-4";
     },
   },
+  created() {
+    Echo.channel("LikeChannel").listen("LikeEvent", (e) => {
+      if (e.id == this.reply.id) {
+        return e.type == 1 ? this.count++ : this.count--;
+      }
+    });
+  },
   methods: {
     async likeIt() {
       if (User.loggedIn()) {
