@@ -71,17 +71,14 @@ export default {
   created() {
     Echo.private("App.Models.User." + User.id()).notification(
       (notification) => {
-        if (
-          notification.type == "App\\Notifications\\DeleteReplyNotification"
-        ) {
-          this.replies = this.replies.filter(
-            (reply) => reply.id !== notification.reply.id
-          );
-        } else {
+        if (notification.type == "App\\Notifications\\SendReplyNotification") {
           this.replies.unshift(notification.reply);
         }
       }
     );
+    Echo.channel("ReplyChannel").listen("ReplyDeleteEvent", (e) => {
+      this.replies = this.replies.filter((r) => r.id !== e.id);
+    });
   },
   methods: {
     async destroy() {

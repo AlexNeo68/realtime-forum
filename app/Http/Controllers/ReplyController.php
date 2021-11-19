@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ReplyDeleteEvent;
 use App\Http\Resources\ReplyResource;
 use App\Models\Question;
 use App\Models\Reply;
@@ -78,9 +79,7 @@ class ReplyController extends Controller
      */
     public function destroy(Question $question, Reply $reply)
     {
-        if(auth()->user()->id !== $question->user_id){
-            $question->user->notify(new DeleteReplyNotification($reply));
-        }
+        broadcast(new ReplyDeleteEvent($reply->id));
         $reply->delete();
         return response(null, Response::HTTP_NO_CONTENT);
     }

@@ -54,6 +54,14 @@ export default {
   },
   created() {
     this.getNotification();
+    Echo.private("App.Models.User." + User.id()).notification(
+      (notification) => {
+        if (notification.type == "App\\Notifications\\SendReplyNotification") {
+          this.unread.unshift(notification.reply);
+          this.unreadCount++;
+        }
+      }
+    );
   },
   methods: {
     async getNotification() {
