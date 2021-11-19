@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ReplyResource;
 use App\Models\Question;
 use App\Models\Reply;
+use App\Notifications\DeleteReplyNotification;
 use App\Notifications\SendReplyNotification;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -77,6 +78,9 @@ class ReplyController extends Controller
      */
     public function destroy(Question $question, Reply $reply)
     {
+        if(auth()->user()->id !== $question->user_id){
+            $question->user->notify(new DeleteReplyNotification($reply));
+        }
         $reply->delete();
         return response(null, Response::HTTP_NO_CONTENT);
     }

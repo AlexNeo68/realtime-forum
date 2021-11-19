@@ -39,7 +39,7 @@
     <v-card-text>
       <Replies
         class="mt-6"
-        :replies="question.replies"
+        :replies="replies"
         @reply-delete="()=>$emit('reply-delete')"
         @reply-edited="()=>$emit('reply-edited')"
       />
@@ -58,12 +58,31 @@ export default {
   name: "QuestionDetail",
   components: { Replies, CreateReply },
   props: ["question"],
+  data() {
+    return {
+      replies: this.question.replies,
+    };
+  },
   computed: {
     own() {
       return User.own(this.question.user_id);
     },
   },
-
+  created() {
+    Echo.private("App.Models.User." + User.id()).notification(
+      (notification) => {
+        if (
+          notification.type == "App\\Notifications\\DeleteReplyNotification"
+        ) {
+          this.replies = this.replies.filter(
+            (reply) => reply.id !== notification.reply.id
+          );
+        } else {
+          this.replies.unshift(notification.reply);
+        }
+      }
+    );
+  },
   methods: {
     async destroy() {
       try {
